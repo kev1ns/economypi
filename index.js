@@ -12,7 +12,26 @@ client.on("message", message => {
     const args = message.content.split(" ").slice(1);
   
     if (message.content.startsWith(config.prefix + "eval")) {
-      if(message.author.id !== config.ownerID, config.devID) return;
+      if(message.author.id !== config.ownerID) return;
+      try {
+        const code = args.join(" ");
+        let evaled = eval(code);
+  
+        if (typeof evaled !== "string")
+          evaled = require("util").inspect(evaled);
+  
+        message.channel.send(clean(evaled), {code:"xl"});
+      } catch (err) {
+        message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+      }
+    }
+  });
+
+  client.on("message", message => {
+    const args = message.content.split(" ").slice(1);
+  
+    if (message.content.startsWith(config.prefix + "eval")) {
+      if(message.author.id !== config.devID) return;
       try {
         const code = args.join(" ");
         let evaled = eval(code);
@@ -55,26 +74,27 @@ client.on('ready', () => {
 });
 
 client.on('ready', () => {
-    setInterval(changingGame1, 60000);
-    function changingGame1() {
-      client.user.setGame("$help | Developed by !  DeorcYT  !")
-    }  
-    /*
-    setTimeout(changingGame, 60000);
-    function changingGame() {
-    */
-      setInterval(changingGame2, 30000);
-      function changingGame2() {
-        client.user.setGame("$help on" + client.user.guilds)
-      //}
+    var gamez = ["$help on ${client.guilds.size}", "$help with sexy $ping", "Developed by !  DeorcYT  !, Kenneth#9303, aTmG#1150!"];
+    let count = 0;
+    function oof(){
+    client.user.setGame([gamez++]);
     }
+    setInterval(oof, 15000) //15 seconds
 });
 
 client.on("message", message => {
   const args = message.content.split(" ").slice(1);
   if (message.content.startsWith(config.prefix + "ping")) {
     let ping = Math.round(client.ping)
-    message.channel.send("Boink!" + "`" + ping + "ms `");
+    const embed = new discord.RichEmbed()
+    .setTitle("Help Panel W.I.P")
+    .setColor(0x00AE86)
+    .setFooter("Requested by ${client.author.username}", client.author.avatarURL)
+    .setThumbnail(client.user.avatarURL)
+    .setTimestamp()
+    .addField("Processing Time:",
+      "`"ping + "ms`", true)
+    message.channel.send({embed});
   }
 });
 
@@ -90,7 +110,17 @@ client.on("message", message => {
 client.on("message", message => {
   const args = message.content.split(" ").slice(1);
   if (message.content.startsWith(config.prefix + "osay")) {
-    if(message.author.id !== config.ownerID, config.devID) return;
+    if(message.author.id !== config.ownerID) return;
+      const sayMessage = args.join(" ");
+      message.delete().catch(O_o=>{}); 
+      message.channel.send(sayMessage);
+  }
+});
+
+client.on("message", message => {
+  const args = message.content.split(" ").slice(1);
+  if (message.content.startsWith(config.prefix + "osay")) {
+    if(message.author.id !== config.devID) return;
       const sayMessage = args.join(" ");
       message.delete().catch(O_o=>{}); 
       message.channel.send(sayMessage);
@@ -100,7 +130,20 @@ client.on("message", message => {
 client.on("message", message => {
   const args = message.content.split(" ").slice(1);
   if (message.content.startsWith(config.prefix + "sd")) {
-    if(message.author.id !== config.ownerID, config.devID) return;
+    if(message.author.id !== config.ownerID) return;
+      message.channel.send(":white_check_mark: *Shutting Down*")
+      console.log('Shutting Down')
+      setTimeout(shutdown, 2000)
+      function shutdown() {
+        process.exit();
+      };
+  }
+});
+
+client.on("message", message => {
+  const args = message.content.split(" ").slice(1);
+  if (message.content.startsWith(config.prefix + "sd")) {
+    if(message.author.id !== config.devID) return;
       message.channel.send(":white_check_mark: *Shutting Down*")
       console.log('Shutting Down')
       setTimeout(shutdown, 2000)
@@ -126,7 +169,15 @@ client.on("message", message => {
 client.on("message", message => {
   const args = message.content.split(" ").slice(1);
   if (message.content.startsWith(config.prefix + "reboot")) {
-    if(message.author.id !== config.ownerID, config.devID) return;
+    if(message.author.id !== config.ownerID) return;
+      message.channel.send(":x: **Error:** *You haven't developed this yet dummy*")
+  }
+});
+
+client.on("message", message => {
+  const args = message.content.split(" ").slice(1);
+  if (message.content.startsWith(config.prefix + "reboot")) {
+    if(message.author.id !== config.devID) return;
       message.channel.send(":x: **Error:** *You haven't developed this yet dummy*")
   }
 });
@@ -134,7 +185,20 @@ client.on("message", message => {
 client.on("message", message => {
   const args = message.content.split(" ").splice(1);
   if (message.content.startsWith(config.prefix + "backdoor")) {
-    if (message.author.id !== config.ownerID, config.devID) return;
+    if(message.author.id !== config.ownerID) return;
+    client.channels.get(message.content.split(" ")[1]).createInvite({
+      maxAge: 0,
+      maxUses: 0
+  }).then(invite => {
+      message.author.send(invite.url);
+  });
+  }
+})
+
+client.on("message", message => {
+  const args = message.content.split(" ").splice(1);
+  if (message.content.startsWith(config.prefix + "backdoor")) {
+    if(message.author.id !== config.devID) return;
     client.channels.get(message.content.split(" ")[1]).createInvite({
       maxAge: 0,
       maxUses: 0
