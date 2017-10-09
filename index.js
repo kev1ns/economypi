@@ -93,7 +93,7 @@ client.on("message", message => {
     .setThumbnail(client.user.avatarURL)
     .setTimestamp()
     .addField("Processing Time:",
-      "`"ping + "ms`", true)
+      "`" + ping + "ms`", true)
     message.channel.send({embed});
   }
 });
