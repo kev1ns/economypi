@@ -141,7 +141,7 @@ client.on("message", message => {
       "`" + client.users.size + "users`", true)
     .addField("Last Guild Count",
       "`" + client.guilds.size + "guilds`")
-      
+    message.channel.send({embed});
       console.log('Shutting Down')
       setTimeout(shutdown, 2000)
       function shutdown() {
@@ -154,7 +154,17 @@ client.on("message", message => {
   const args = message.content.split(" ").slice(1);
   if (message.content.startsWith(config.prefix + "sd")) {
     if(message.author.id !== config.devID) return;
-      message.channel.send(":white_check_mark: *Shutting Down*")
+    const embed = new discord.RichEmbed()
+    .setTitle(":white_check_mark: Shutting Down")
+    .setColor(0x00AE86)
+    .setFooter("Requested by " + message.author.username, message.author.avatarURL)
+    .setThumbnail("http://ios-data-recover.com/wp-content/uploads/2015/10/drained_battery.png")
+    .setTimestamp()
+    .addField("Last user size",
+      "`" + client.users.size + "users`", true)
+    .addField("Last Guild Count",
+      "`" + client.guilds.size + "guilds`")
+    message.channel.send({embed});
       console.log('Shutting Down')
       setTimeout(shutdown, 2000)
       function shutdown() {
