@@ -69,17 +69,17 @@ client.on("message", message => {
 client.on('ready', () => {
     console.log("Running");
     console.log("Invite the bot! \nhttps://discordapp.com/oauth2/authorize?&client_id=320950884303372288&scope=bot&permissions=0");
-    //client.user.setGame("on Google Server List!");
     client.user.setStatus("streaming");
 });
 
 client.on('ready', () => {
-    var gamez = ["$help on ${client.guilds.size}", "$help with sexy $ping", "Developed by !  DeorcYT  !, Kenneth#9303, aTmG#1150!"];
-    let count = 0;
-    function oof(){
-    client.user.setGame([gamez++]);
-    }
-    setInterval(oof, 15000) //15 seconds
+  var gamez = [`$help on ${client.guilds.size} servers!`, "with new $ping!", "on Google Server List", `with ${client.users.size} people!`];
+  let count = 0;
+  function oof(){
+   if(count > gamez.length - 1) count = 0;
+      client.user.setGame(gamez[count++]);
+  }
+  setInterval(oof, 15000);
 });
 
 client.on("message", message => {
@@ -87,10 +87,10 @@ client.on("message", message => {
   if (message.content.startsWith(config.prefix + "ping")) {
     let ping = Math.round(client.ping)
     const embed = new discord.RichEmbed()
-    .setTitle("Help Panel W.I.P")
+    .setTitle("Boink!")
     .setColor(0x00AE86)
-    .setFooter("Requested by ${client.author.username}", client.author.avatarURL)
-    .setThumbnail(client.user.avatarURL)
+    .setFooter("Requested by " + message.author.username, message.author.avatarURL)
+    .setThumbnail("https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Breakout2600.svg/240px-Breakout2600.svg.png")
     .setTimestamp()
     .addField("Processing Time:",
       "`" + ping + "ms`", true)
@@ -131,7 +131,17 @@ client.on("message", message => {
   const args = message.content.split(" ").slice(1);
   if (message.content.startsWith(config.prefix + "sd")) {
     if(message.author.id !== config.ownerID) return;
-      message.channel.send(":white_check_mark: *Shutting Down*")
+    const embed = new discord.RichEmbed()
+    .setTitle(":white_check_mark: Shutting Down")
+    .setColor(0x00AE86)
+    .setFooter("Requested by " + message.author.username, message.author.avatarURL)
+    .setThumbnail("http://ios-data-recover.com/wp-content/uploads/2015/10/drained_battery.png")
+    .setTimestamp()
+    .addField("Last user size",
+      "`" + client.users.size + "users`", true)
+    .addField("Last Guild Count",
+      "`" + client.guilds.size + "guilds`")
+      
       console.log('Shutting Down')
       setTimeout(shutdown, 2000)
       function shutdown() {
@@ -224,7 +234,7 @@ client.on("message", message => {
     .setTitle("Help Panel W.I.P")
     .setColor(0x00AE86)
     .setDescription("**Be the kind/queen of your server's economy or global economy!**\n \n__Links__\nPrefix - " + config.prefix + "\n[Invite me!](https://discordapp.com/oauth2/authorize?&client_id=320950884303372288&scope=bot&permissions=0)\n[Offical Sever!](https://discord.gg/dBAbFdE)")
-    .setFooter("Need Help? Join our support Server!", client.user.avatarURL)
+    .setFooter("Requested by " + message.author.username, message.author.avatarURL)
     .setThumbnail(client.user.avatarURL)
     .setTimestamp()
     .addField("Utility",
@@ -233,7 +243,6 @@ client.on("message", message => {
       "`say`", true)
     .addField("Bot Owner",
       "`sd` `eval` `moo` `reboot` `osay`", true);
-  
     message.channel.send({embed});
   }
 });
