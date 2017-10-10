@@ -257,4 +257,11 @@ client.on("message", message => {
   }
 });
 
+client.on("message", message => {
+  const args = message.content.split(" ").splice(1);
+  if (message.content.startsWith(config.prefix + "balance")) {
+    message.channel.send(":x: This command is still being made.");
+  }
+});
+
 client.login(config.token);
